@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" href="consultantT.css" type="text/css"/>
+<link rel="stylesheet" href="reset.css" type="text/css"/>
+<title>Login Page</title>
+</head>
+
+<header>
+    <button><i class="fa-solid fa-bell"></i></button>
+    <button><p>Admin</p></button>
+</header>
+
+<body>
+
+    <div id="container">
+        <h1><img src="PortalFDM_Logo.png" alt="Fdm Logo" class="logo"></h1>
+        <div id="middleSection">
+            <div id="middleTop">
+                <button id="toggleBtn" onclick="toggleClock()">Clock In</button>
+                <button id="pauseBtn" onclick="pauseTimer()" disabled>Pause</button>
+                <div id="timer" class="timer">00:00:00</div>
+            </div>
+            
+            <div class="calendar" id="calendar">
+
+                <button id="accessibilityBtn">Accessibility</button>
+            <script>
+let timerInterval = null;
+let elapsedSeconds = 0;
+let isClockIn = false;
+let isPaused = false;
+
+document.getElementById('accessibilityBtn').addEventListener('click', function() {
+    document.body.classList.toggle('accessibility-mode');
+    if (document.body.classList.contains('accessibility-mode')) {
+        this.textContent = 'Normal';
+    } else {
+        this.textContent = 'Accessibility';
+    }
+});
+
+
+function updateTime() {
+    elapsedSeconds++;
+    let hours = Math.floor(elapsedSeconds / 3600).toString().padStart(2, '0');
+    let minutes = Math.floor((elapsedSeconds % 3600) / 60).toString().padStart(2, '0');
+    let seconds = (elapsedSeconds % 60).toString().padStart(2, '0');
+    document.getElementById('timer').textContent = hours + ':' + minutes + ':' + seconds;
+}
+
+function toggleClock() {
+    let btn = document.getElementById('toggleBtn');
+    let pauseBtn = document.getElementById('pauseBtn');
+    
+    if (!isClockIn) {
+    isClockIn = true;
+    elapsedSeconds = 0; 
+    timerInterval = setInterval(updateTime, 1000);
+    btn.textContent = 'Clock Out';
+    btn.style.backgroundColor = 'red';
+    pauseBtn.classList.add('enabled');
+    pauseBtn.disabled = false;
+
+} else {
+    let confirmOut = confirm("Are you sure you want to clock out?");
+    if (confirmOut) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        let totalTime = document.getElementById('timer').textContent;
+        alert('You have clocked out. Your total working time was: ' + totalTime);
+        document.getElementById('timer').textContent = '00:00:00';
+        btn.textContent = 'Clock In';
+        btn.style.backgroundColor = 'green';
+        pauseBtn.classList.remove('enabled');
+        pauseBtn.disabled = true;
+        pauseBtn.textContent = 'Pause';
+        isClockIn = false;
+        isPaused = false;
+    }
+}
+
+}
+
+function pauseTimer() {
+    let pauseBtn = document.getElementById('pauseBtn');
+    isPaused = !isPaused;
+
+    if (isPaused) {
+        clearInterval(timerInterval);
+        pauseBtn.textContent = 'Continue';
+    } else {
+        timerInterval = setInterval(updateTime, 1000);
+        pauseBtn.textContent = 'Pause';
+    }
+}
+
+                function createCalendar(containerId) {
+                const now = new Date();
+                const today = now.getDay();
+                const currentDate = now.getDate();
+                const currentMonth = now.getMonth();
+                const currentYear = now.getFullYear();
+                
+                const container = document.getElementById(containerId);
+                const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                const calendarTable = document.createElement('table');
+                calendarTable.className = 'calendar-table';
+
+                const headerRow = document.createElement('tr');
+                daysOfWeek.forEach((day, index) => {
+                    const dayCell = document.createElement('th');
+                    dayCell.innerHTML = `${day}<br>`;
+                    
+                    const dateForDay = new Date(currentYear, currentMonth, currentDate - today + index);
+                    const dateSpan = document.createElement('span');
+                    dateSpan.className = 'date-span';
+                    dateSpan.textContent = dateForDay.getDate();
+                    
+                    dayCell.appendChild(dateSpan);
+                    
+                    if (today === index) {
+                    dayCell.classList.add('today');
+                    }
+                    headerRow.appendChild(dayCell);
+                });
+                calendarTable.appendChild(headerRow);
+
+                const hourStart = 9;
+                const hourEnd = 18;
+                for (let hour = hourStart; hour <= hourEnd; hour++) {
+                    const timeRow = document.createElement('tr');
+                    for (let day = 0; day < 7; day++) {
+                    const timeCell = document.createElement('td');
+                    if (day === 0) {
+                        const timeLabel = document.createElement('span');
+                        timeLabel.textContent = `${hour}:00`;
+                        timeCell.appendChild(timeLabel);
+                    }
+                    timeRow.appendChild(timeCell);
+                    }
+                    calendarTable.appendChild(timeRow);
+                }
+
+                container.appendChild(calendarTable);
+
+                const tasks = [
+                    { day: 0, duration: 1, startTime: '09:00', endTime: '10:20', title: 'Task 1' },
+                    { day: 2, duration: 2, startTime: '10:30', endTime: '11:50', title: 'Task 2' },
+                    { day: 4, duration: 2, startTime: '14:30', endTime: '16:15', title: 'Task 3' }
+                ];
+
+                function createTaskElement(task) {
+                    const taskElement = document.createElement('div');
+                    taskElement.className = 'task';
+                    taskElement.textContent = `${task.title}: ${task.startTime}-${task.endTime}`;
+                    return taskElement;
+                }
+
+                tasks.forEach(task => {
+                    const dayIndex = task.day + 1; 
+                    const taskElement = createTaskElement(task);
+                    const taskStartHour = parseInt(task.startTime.split(':')[0], 10);
+                    const taskRow = calendarTable.children[taskStartHour - hourStart + 1];
+
+                    if (task.duration > 1) {
+                    for (let i = 1; i < task.duration; i++) {
+                        const cellToClear = taskRow.children[dayIndex + i];
+                        cellToClear.parentNode.removeChild(cellToClear);
+                    }
+
+                    taskRow.children[dayIndex].colSpan = task.duration;
+                    }
+
+                    taskRow.children[dayIndex].appendChild(taskElement);
+                });
+                }
+
+                    window.onload = function() {
+                    createCalendar('calendar');
+                    };
+            </script>
+
+        </div>
+    </body>
+</html>

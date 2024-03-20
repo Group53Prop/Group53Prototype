@@ -1,0 +1,285 @@
+header {
+  background-color: white;
+  width: 100%;
+  height: 50px;
+  padding: 1px 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+}
+
+.header1 {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.header-right-group {
+  display: flex;
+  align-items: center;
+}
+
+header button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px 20px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+header button:focus {
+  outline: none;
+}
+
+header button:active {
+  opacity: 0.7;
+}
+
+header p {
+  color: rgb(57, 128, 236);
+  font-weight: bold;
+}
+  body {
+    background-color: rgb(57, 128, 236);
+    margin: 0;
+    padding-top: 60px; 
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+  }
+  
+  #container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-gap: 20px;
+    padding: 20px;
+  }
+  
+  img {
+    width: 100px;
+    height: auto; 
+    margin-bottom: 10px;
+  }
+  
+  #sidebar {
+    background-color: rgb(57, 128, 236);
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    position: relative; 
+  }
+  
+  #sidebar ul {
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  #sidebar ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  #sidebar li {
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  #sidebar li i {
+    margin-right: 8px;
+  }
+  
+  #sidebar button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    text-align: center;
+    display: inline-flex;
+  }
+  
+  #sidebar p {
+    font-size: 0.8rem;
+    margin-left: 10px; 
+  }
+
+  #currentPage {
+    background-color: #007BFF; /* Example blue color, replace with the exact color needed */
+    border-radius: 10px; /* Rounded corners */
+    margin: 5px 0; /* Spacing above and below the item for separation */
+  }
+  
+  #currentPage li {
+    list-style-type: none; /* Removes the default list item bullet */
+  }
+  
+  #currentPage button {
+    background: none;
+    border: none;
+    color: blue; /* Text color for the button */
+    width: 100%; /* Make the button fill the container */
+    text-align: left; /* Align the text to the left */
+  }
+  
+  #currentPage i {
+    margin-right: 8px; /* Spacing between the icon and text */
+  }
+  
+  
+  #middleSection {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #middleTop {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+  }
+
+  #middleTop .card {
+    background-color: white;
+    border-radius: 15px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    padding: 20px;
+    padding-bottom: 150px; 
+    width: 45%; 
+    text-align: center; 
+    font-size: 1.2rem; 
+    margin: 10px;
+}
+  
+  .calendar-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .calendar-table th,
+  .calendar-table td {
+    border: 1px solid #ddd;
+    text-align: center;
+    padding: 8px;
+    min-height: 50px;
+  }
+  
+  .calendar-table .today {
+    background-color: #e9ffe9;
+  }
+  
+  .calendar-table .date-span {
+    display: block;
+    color: #555;
+    font-size: 0.85em;
+  }
+  
+  .task {
+    display: block;
+    background-color: #f0f0f0;
+    border-left: 3px solid #009688;
+    padding: 4px;
+    margin: 4px 0;
+    cursor: pointer;
+  }
+  
+  .task:hover {
+    background-color: #e0e0e0;
+  }
+
+  #rightSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #rightSection .card {
+    background-color: white;
+    border-radius: 15px; /* Rounded corners as seen in the image */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+    width: 100%; /* Full width of the container */
+    margin: 10px 0; /* Spacing between cards */
+    overflow: hidden; /* Ensures the image does not break the border-radius */
+  }
+
+  #rightSection h1, 
+#rightSection h2 {
+  background-color: darkgray; /* Light grey background */
+  margin: 0; /* Remove default margin */
+  padding: 20px; /* Padding inside the grey area */
+  border-radius: 15px 15px 0 0; /* Rounded corners on top */
+  text-align: center; /* Center text */
+}
+
+#rightSection img {
+    padding: 10px;
+    display: block; /* Remove inline nature to allow width: 100% */
+    width: 100%; /* Ensure it stretches to the container's width */
+    height: auto; /* Maintain aspect ratio */
+  }
+
+  #rightSection button {
+    display: block; /* Center the button in the card */
+    margin: 20px auto; /* Margin top and bottom, auto for left and right */
+    padding: 10px 30px; /* Padding inside the button */
+    border: none; /* Remove border */
+    border-radius: 20px; /* Rounded corners for button */
+    background-color: #ececec; /* Light grey background for the button */
+    font-size: 25px;
+    cursor: pointer; /* Pointer cursor on hover */
+  }
+  
+  /* Media Query for tablets and desktops */
+  @media (min-width: 768px) {
+    #container {
+      grid-template-columns: 20% auto 20%;
+      grid-template-areas: 
+        "sidebar middleSection rightSection";
+      margin-top: 60px; /* Adjusted to match the header height */
+    }
+    #rightSection {
+        width: 90%; /* Slightly smaller width on smaller screens */
+        margin: 10px auto; /* Center the section on the page */
+      }
+  
+    #middleSection {
+      grid-area: middleSection;
+      display: grid;
+      grid-template-rows: auto;
+    }
+  
+    #rightSection {
+      grid-area: rightSection;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    header {
+      height: 70px; 
+      padding: 1px 20px;
+    }
+  
+    body {
+      padding-top: 70px; 
+    }
+  
+    #container {
+      grid-template-columns: 250px auto 250px; 
+      grid-gap: 30px;
+    }
+  
+    #sidebar {
+      margin-top: 0;
+      margin-right: 0; 
+    }
+  }
+
+
+  

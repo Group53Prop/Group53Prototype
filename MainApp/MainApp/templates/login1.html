@@ -1,0 +1,63 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'css/login1.css' %}">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Page</title>
+</head>
+<body>
+
+<div class="flex-container">
+    <h1><img src="{% static '/Images/logo3.jpg' %}" alt="My Logo"></h1>
+    <div class="form-container">
+        <form action="{% url 'account:login_view' %}" method="post" id="login-form">
+            {% csrf_token %}
+            <h2>Login to your account</h2>
+            <div class="input-container">
+                <label for="email">Email</label>
+                <input type="email" required placeholder="example@gmail.com" name="loginUser">
+            </div>
+            <div class="input-container">
+                <label for="password">Password</label>
+                <input type="password" required id="password" placeholder="Enter your password" name="loginPassword">
+                <i class="fas fa-eye" id="togglePassword"></i>
+            </div>
+            <div class="forgot-container">
+                <a href="change.html">Forgot?</a>
+            </div>
+            <div class="button-container">
+                <button type="submit">Login now</button>
+                {% if error %}
+                <div style="color: rgb(12, 54, 107);">{{ error }}</div>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+
+    
+</div>
+<script>
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#password');
+
+    togglePassword.addEventListener('click', function (e) {
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        
+        this.classList.toggle('fa-eye');
+        this.classList.toggle('fa-eye-slash');
+    });
+
+    
+
+</script>
+</body>
+</html>
