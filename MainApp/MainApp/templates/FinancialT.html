@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anta&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/FinancialT.css' %}">
+    <title>Login Page</title>
+</head>
+
+<body>
+    <div class="topnav">
+        <h1 class="homepage">Homepage</h1>
+        <a href="#" class="notification">
+            <span>Inbox</span>
+            <span class="badge">3</span>
+        </a>
+        <button class="bell"><i class="fa-solid fa-bell"></i></button>
+        <button class="admin">Admin</button>
+        <button class="password">Change Password</button>
+        <button class="logout">Logout</button>
+    </br>
+    </br>
+    </br>    
+    </div>
+    <div class="img">
+        <img src="logo.png" alt="FDM logo" class="logo">
+    </div>
+
+
+</br>
+    <button class="btn" id="access-timesheet-data-btn"><i class="fa-solid fa-database"></i> Access Timesheet Data</button>
+</br>
+</br>
+<button class="btn2" id="approve-for-payroll-btnbtn-2"><i class="fa-solid fa-thumbs-up"></i> Approve For Payroll</button>
+</br>
+
+    <script>
+        document.getElementById('access-timesheet-data-btn').addEventListener('click', function() {
+            
+            alert('Accessing Time Sheet Data...');
+        });
+
+        document.getElementById('approveForPayrollBtn').addEventListener('click', function() {
+            
+            alert('Approving for Payroll...');
+        });
+    </script>
+
+</body>
+</html>

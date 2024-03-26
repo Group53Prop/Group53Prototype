@@ -16,14 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
+from account.views import redirect_based_on_user_type
 from django.urls import include, path
 from timesheet.views import (
     my_view
 )
 from account.views import(
-    login_view,
-    portal_view,
-    logout_view
+
+    consultant_view,manager_view,financial_view,redirect_based_on_user_type,
+    view_past_timesheets
+   
 )
 
 urlpatterns = [
@@ -31,6 +33,14 @@ urlpatterns = [
     path('', my_view,name="home"),
     path('account/', include('account.urls', namespace='account')),
     path('accounts/logout/', auth_views.LogoutView.as_view(), name='login'),
+    path('timesheet/', include('timesheet.urls', namespace='timesheet')),
+    path('redirect/', redirect_based_on_user_type, name='redirect_user_type'),
+    path('consultant/', consultant_view, name='consultant'),
+    path('financial/', financial_view, name='financial'),
+    path('manager/', manager_view, name='manager'),
+    path('past-timesheets/', view_past_timesheets, name='view_past_timesheets'),
+    
+
     
     
 

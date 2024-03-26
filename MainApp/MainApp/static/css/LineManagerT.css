@@ -1,0 +1,216 @@
+body {
+  background-color: rgb(43, 124, 204);
+  font-family: "Anta", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: red;
+}
+
+.btn {
+    background-color: blue;
+    border: none;
+    color: white;
+    padding: 12px 30px;
+    cursor: pointer;
+    font-size: 20px;
+    font-family: "Anta", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .btn:hover {
+    background-color: darkblue;
+    color: orange;
+    cursor: pointer;
+  }
+
+  .notification {
+    background-color: gainsboro;
+    color: black;
+    text-decoration: none;
+    padding: 15px 26px;
+    position: relative;
+    display: inline-block;
+    border-radius: 2px;
+    border: 2px solid black;
+    position:absolute;
+    top: 10px;
+    right:15px;
+  }
+  
+  .notification:hover {
+    background: red;
+    color: white;
+  }
+  
+  .notification .badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    padding: 5px 10px;
+    border-radius: 50%;
+    background: red;
+    color: white;
+  }
+
+  .btn2 {
+    background-color: green;
+    border: none;
+    color: white;
+    padding: 12px 30px;
+    cursor: pointer;
+    font-size: 20px;
+    font-family: "Anta", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .btn2:hover {
+    background-color: darkgreen;
+    color: orange;
+  }
+
+  .btn3 {
+    background-color: red;
+    border: none;
+    color: white;
+    padding: 12px 30px;
+    cursor: pointer;
+    font-size: 20px;
+    font-family: "Anta", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .btn3:hover {
+    background-color: darkred;
+    color: orange;
+  }
+
+  .btn4 {
+    background-color: orange;
+    border: none;
+    color: white;
+    padding: 12px 30px;
+    cursor: pointer;
+    font-size: 20px;
+    font-family: "Anta", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .btn4:hover {
+    background-color: darkorange;
+    color: black;
+  }
+
+  .bell {
+    position:absolute;
+    top: 10px;
+    right: 175px;
+  }
+
+  .bell:hover {
+    background-color: red;
+    color: white;
+  }
+
+  .admin {
+    position:absolute;
+    top: 10px;
+    right: 115px;
+    font-family: "Anta", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .admin:hover {
+    background-color: red;
+    color: white;
+  }
+
+  .password {
+    position:absolute;
+    top: 10px;
+    right: 210px;
+    font-family: "Anta", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .password:hover {
+    background-color: red;
+    color: white;
+  }
+
+  .logout {
+    position:absolute;
+    top: 10px;
+    right: 345px;
+    font-family: "Anta", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .logout:hover {
+    background-color: red;
+    color: white;
+  }
+
+  .topnav:hover {
+    background-color: red;
+    color: white;
+  }
+
+  .topnav {
+    overflow: hidden;
+    background-color: white;
+  }
+
+  .topnav:after{
+    content:'Portal Page For Line Manager'
+  }
+
+  .topnav:hover:after{
+    content:'Welcome'
+  }
+
+  .img {
+      position:absolute;
+      top: 200px;
+      right: 500px;
+  }
+
+  .img:hover {
+    background-color: red;
+  }
+
+  .heading {
+    background-color: white;
+    color: black;
+    text-align: center;
+  }
+
+  .heading:hover {
+    background-color: red;
+    color: white;
+  }
+
+  .submit {
+    font-family: "Anta", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .submit:hover {
+    background-color: red;
+    color: white;
+  }
+
+  .homepage:hover {
+    color:white
+  }
+
+  .button-hover {
+    cursor: not-allowed;
+  }

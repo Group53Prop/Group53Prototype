@@ -4,210 +4,133 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<link rel="stylesheet" type="text/css" href="{% static 'css/portal.css' %}">
-<link rel="stylesheet" href="reset.css" type="text/css"/>
-<title>Login Page</title>
-</head>
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/portal.css' %}">
+  <script src="{% static 'Javascrpt/portal.js' %}"></script>
+  <title>Login Page</title>
+</head>
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function () {
+    var userType = '{{ user_type }}';
+    var hasClockedIn = sessionStorage.getItem('clockedIn');
+    if (userType === 'consultant' && !hasClockedIn) {
+        var userChoice = confirm('Do you want to clock in?');
+        if (userChoice) {
+            console.log('User chose to clock in.');
+
+            // The AJAX part to send data to the server
+            fetch('/timesheet/clock-in/', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken'), // You need to include the CSRF token
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    action: 'clock_in'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Clock in successful:', data);
+                sessionStorage.setItem('clockedIn', 'yes');
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
+        } else {
+            console.log('User chose not to clock in.');
+            sessionStorage.setItem('clockedIn', 'no');
+        }
+    }
+});
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+  </script>
+  
+  
 <header>
   <p class="header1">{% time_based_greeting %}!</p>
   <div class="header-right-group">
-    
     <button><i class="fa-solid fa-bell"></i></button>
     {% if not request.user.is_authenticated %}
-      <button><p>Admin</p></button>
+    <button>
+      <p>Admin</p>
+    </button>
     {% endif %}
   </div>
 </header>
 
 
 <body>
-
-    <div id="container">
-
-        <div id="sidebar">
-            <h1><img src="{% static '/Images/FDMlogo1.jpg' %}" alt="My Logo"></h1>
-            <div id="sideBorder">
-            <p>ANALYSE</p>
-            <ul>
-                <li><i class="fa-regular fa-file-lines"></i> <button>Report</button></li>
-            </ul>
-            <p>MANAGE</p>
-            <ul>
-                <li><i class="fa-solid fa-gear"></i> <button>Settings</button></li>
-                <form  action="{% url 'account:logout' %}" method="POST">
-                  {% csrf_token %}
-                <li><i class="fa-solid fa-arrow-right-from-bracket"></i> <button>Logout</button></li>
-              </form>
-            </ul>
-        </div>
-        </div>
-        
-        <div id="middleSection">
-
-            <div id="middleTop">
-                <div class="card">Company Stock</div>
-                <div class="card">OurTime</div>
-              </div>
-            
-            <div class="calendar" id="calendar">
-            <script>
-function createCalendar(containerId) {
-  const now = new Date();
-  const today = now.getDay();
-  const currentDate = now.getDate();
-  const currentMonth = now.getMonth();
-  const currentYear = now.getFullYear();
-  
-  const container = document.getElementById(containerId);
-  const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  const calendarTable = document.createElement('table');
-  calendarTable.className = 'calendar-table';
-
-  const headerRow = document.createElement('tr');
-  daysOfWeek.forEach((day, index) => {
-    const dayCell = document.createElement('th');
-    dayCell.innerHTML = `${day}<br>`;
-    
-    const dateForDay = new Date(currentYear, currentMonth, currentDate - today + index);
-    const dateSpan = document.createElement('span');
-    dateSpan.className = 'date-span';
-    dateSpan.textContent = dateForDay.getDate();
-    
-    dayCell.appendChild(dateSpan);
-    
-    if (today === index) {
-      dayCell.classList.add('today');
-    }
-    headerRow.appendChild(dayCell);
-  });
-  calendarTable.appendChild(headerRow);
-
-  const hourStart = 9;
-  const hourEnd = 18;
-  for (let hour = hourStart; hour <= hourEnd; hour++) {
-    const timeRow = document.createElement('tr');
-    for (let day = 0; day < 7; day++) {
-      const timeCell = document.createElement('td');
-      if (day === 0) {
-        const timeLabel = document.createElement('span');
-        timeLabel.textContent = `${hour}:00`;
-        timeCell.appendChild(timeLabel);
-      }
-      timeRow.appendChild(timeCell);
-    }
-    calendarTable.appendChild(timeRow);
-  }
-
-  container.appendChild(calendarTable);
-
-  const tasks = [
-    { day: 0, duration: 1, startTime: '09:00', endTime: '10:20', title: 'Task 1' },
-    { day: 2, duration: 2, startTime: '10:30', endTime: '11:50', title: 'Task 2' },
-    { day: 4, duration: 2, startTime: '14:30', endTime: '16:15', title: 'Task 3' }
-  ];
-
-  function createTaskElement(task) {
-    const taskElement = document.createElement('div');
-    taskElement.className = 'task';
-    taskElement.textContent = `${task.title}: ${task.startTime}-${task.endTime}`;
-    return taskElement;
-  }
-
-  tasks.forEach(task => {
-    const dayIndex = task.day + 1; 
-    const taskElement = createTaskElement(task);
-    const taskStartHour = parseInt(task.startTime.split(':')[0], 10);
-    const taskRow = calendarTable.children[taskStartHour - hourStart + 1];
-
-    if (task.duration > 1) {
-      for (let i = 1; i < task.duration; i++) {
-        const cellToClear = taskRow.children[dayIndex + i];
-        cellToClear.parentNode.removeChild(cellToClear);
-      }
-
-      taskRow.children[dayIndex].colSpan = task.duration;
-    }
-
-    taskRow.children[dayIndex].appendChild(taskElement);
-  });
-}
-
-window.onload = function() {
-  createCalendar('calendar');
-};
-
-let logoutTimer;
-  const logoutAfterInactivity = () => {
-    // Use fetch to perform a POST request to logout
-    fetch('/accounts/logout/', {
-      method: 'POST',
-      credentials: 'same-origin', // Include cookies
-      headers: {
-        'X-CSRFToken': getCookie('csrftoken'), // Ensure you're sending the CSRF token
-      },
-    }).then(response => {
-      if (response.ok) {
-        window.location.href = '/';
-        // Redirect to home page or login page after logout
-      }
-    });
-  };
-
-  const resetLogoutTimer = () => {
-    clearTimeout(logoutTimer);
-    logoutTimer = setTimeout(logoutAfterInactivity,900000); // 900,000 milliseconds = 15 minutes
-  };
-
-  document.onload = resetLogoutTimer;
-  document.onmousemove = resetLogoutTimer;
-  document.onkeypress = resetLogoutTimer;
-
-  // Function to get a cookie by name; used to get the CSRF token
-  function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-      const cookies = document.cookie.split(';');
-      for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i].trim();
-        if (cookie.substring(0, name.length + 1) === (name + '=')) {
-          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-          break;
-        }
-      }
-    }
-    return cookieValue;
-  }
-</script>
-
-</div>
-</div>
-
-        <div id="rightSection">
-            <!-- Right section -->
-            <div class="card">
-                <h1>Company News</h1>
-                <img src="Company Info.png" alt="Company News Image">
-              </div>
-
-                <!-- Right Mid section -->
-                <div class="card">
-                    <h1>New Recruits</h1>
-                    <img src="{% static '/Images/FDM_employees_jumping.jpg' %}" alt="My Logo">
-                  </div>
-                
-                <!-- Right Bot section -->
-                <div class="card">
-                    <button>Accessibility</button>
-                  </div>
-
-        </div>
+  <div id="container">
+    <div id="sidebar">
+      <h1><img src="{% static '/Images/FDMlogo1.jpg' %}" alt="My Logo"></h1>
+      <div id="sideBorder">
+        <p>ANALYSE</p>
+        <ul>
+          <li><i class="fa-regular fa-file-lines"></i> <button>Report</button></li>
+        </ul>
+        <p>MANAGE</p>
+        <ul>
+          <a href="{% url 'account:redirect_user_type' %}">
+          <li><i class="fa-solid fa-calendar-days"></i><button>TimeSheet Portal</button></li>
+          </a>
+          <li><i class="fa-solid fa-gear"></i> <button>Settings</button></li>
+          <form action="{% url 'account:logout' %}" method="POST">
+            {% csrf_token %}
+            <li><i class="fa-solid fa-arrow-right-from-bracket"></i> <button>Logout</button></li>
+          </form>
+        </ul>
+      </div>
     </div>
+    <div id="middleSection">
+      <div id="middleTop">
+        <div class="card">Company Stock</div>
+        <div class="card">OurTime</div>
+      </div>
+      <div class="calendar" id="calendar">
+      </div>
+    </div>
+
+    <div id="rightSection">
+      <!-- Right section -->
+      <div class="card">
+        <h1>Company News</h1>
+        <img src="Company Info.png" alt="Company News Image">
+      </div>
+
+      <!-- Right Mid section -->
+      <div class="card">
+        <h1>New Recruits</h1>
+        <img src="{% static '/Images/FDM_employees_jumping.jpg' %}" alt="My Logo">
+      </div>
+
+      <!-- Right Bot section -->
+      <div class="card">
+        <button>Accessibility</button>
+      </div>
+
+    </div>
+  </div>
 </body>
-    
-    
-    </html>
+
+
+</html>

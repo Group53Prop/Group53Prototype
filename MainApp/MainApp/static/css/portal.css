@@ -236,6 +236,9 @@ header p {
     cursor: pointer; /* Pointer cursor on hover */
   }
   
+
+
+  
   /* Media Query for tablets and desktops */
   @media (min-width: 768px) {
     #container {

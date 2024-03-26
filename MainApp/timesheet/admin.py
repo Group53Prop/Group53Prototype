@@ -4,5 +4,5 @@ from timesheet.models import TimeSheet
 
 @admin.register(TimeSheet)
 class TimesheetAdmin(admin.ModelAdmin):
-    list_display = ('user', 'clock_in_time', 'clock_out_time', 'status')
+    list_display = ('user', 'start_time', 'end_time', 'status')
 
