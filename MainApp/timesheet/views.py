@@ -25,7 +25,7 @@ def clock_in(request):
         new_timesheet = TimeSheet.objects.create(
             user=request.user,
             start_time=timezone.now(),
-            end_time=timezone.now() + timezone.timedelta(hours=8),  # Example for a full workday
+            end_time=timezone.now(),
             status=TimeSheetStatus.PENDING,
             submission_time=timezone.now()
         )

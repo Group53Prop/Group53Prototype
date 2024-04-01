@@ -121,7 +121,7 @@ const logoutAfterInactivity = () => {
 
 const resetLogoutTimer = () => {
     clearTimeout(logoutTimer);
-    logoutTimer = setTimeout(logoutAfterInactivity, 900000); 
+    logoutTimer = setTimeout(logoutAfterInactivity, 5000); 
 };
 
 document.onload = resetLogoutTimer;

@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     #myApps
-    'timesheet','MainApp','account',
+    'timesheet','MainApp','account','notifications',
     #djangoapps
     'django.contrib.admin',
     'django.contrib.auth',
