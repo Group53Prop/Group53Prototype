@@ -4,7 +4,9 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 USER_TYPE_CHOICES = [
         ('consultant', 'Consultant'),
         ('Line Manager', 'Manager'),
-        ('financeteam', 'Accounts Payable')
+        ('financeteam', 'Accounts Payable'),
+        ('admin', 'Admin')
+
     ]
 
 class MyAccountManager(BaseUserManager):

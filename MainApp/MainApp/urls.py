@@ -39,7 +39,8 @@ urlpatterns = [
     path('financial/', financial_view, name='financial'),
     path('manager/', manager_view, name='manager'),
     path('past-timesheets/', view_past_timesheets, name='view_past_timesheets'),
-    path('timesheets/', view_timesheets, name='view_timesheets')
+    path('timesheets/', view_timesheets, name='view_timesheets'),
+    path('notifications/', include('notifications.urls', namespace='notifications')),
     
 
     

@@ -201,5 +201,11 @@ function getCookie(name) {
   }
   return cookieValue;
 }
+
+
+
+
+
+
 initButtons();
 load();

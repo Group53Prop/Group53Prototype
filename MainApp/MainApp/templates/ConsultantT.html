@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'css/consultantT.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     
     
     <title>OurTime Portal</title>
@@ -76,8 +77,125 @@
           <button id="pauseBtn" onclick="pauseTimer()">Clock Out</button>
           <button id="backButton">Back</button>
           <button id="nextButton">Next</button>
+          <form action="{% url 'notifications:notifications' %}" method="get">
+            <button type="submit" class="post">
+                <i class="fas fa-envelope"></i>
+            </button>
+        </form>
         </div>
       </div>
+
+      <style>
+        #messageBox {
+          display: none;
+          width: 600px;
+          height: 300px;
+          background-color: grey;
+          color: white;
+          text-align: center;
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          box-sizing: border-box;
+          padding: 20px;
+        }
+
+        #closeButton {
+          display: block;
+          margin: 20px auto 0;
+          padding: 5px 10px;
+          cursor: pointer;
+          background-color: darkred;
+          color: white;
+          border: none;
+        }
+
+        #messageBoxContent {
+          height: calc(100% - 40px);
+          overflow: auto;
+          margin-bottom: 20px;
+          text-align: left;
+        }
+
+        .message {
+          border-bottom: 1pt solid white;
+        }
+        .show {
+          display: block;
+        }
+        .hide {
+          display: none;
+        }
+      </style>
+
+<div id="messageBox" style="display:none;">
+  <div id="messageBoxContent">
+      <div id="notifications">
+          <!-- Notifications will be inserted here by the JavaScript -->
+      </div>
+  </div>
+  <button id="closeButton">Close</button>
+</div>
+
+
+      <script>
+      document.addEventListener('DOMContentLoaded', (event) => {
+    const form = document.querySelector('form');
+    const messageBox = document.getElementById('messageBox');
+    const closeButton = document.getElementById('closeButton');
+    const notificationsContainer = document.getElementById('notifications');
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault(); // Prevent the form from submitting traditionally
+
+        // Use Fetch API to send an AJAX GET request to the server
+        fetch(this.action, {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest', // Important for Django to recognize AJAX request
+            },
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(notifications => {
+            notificationsContainer.innerHTML = ''; // Clear existing notifications
+
+            // Check if there are no notifications
+            if (notifications.length === 0) {
+                notificationsContainer.innerHTML = '<div class="message">No notifications.</div>';
+            } else {
+                // Add each notification to the message box
+                notifications.forEach(notification => {
+                    const notificationElement = document.createElement('div');
+                    notificationElement.className = 'message';
+                    notificationElement.innerHTML = `
+                        <p>${notification.message}</p>
+                        <small>Received on: ${new Date(notification.created_at).toLocaleString()}</small>
+                    `;
+                    notificationsContainer.appendChild(notificationElement);
+                });
+            }
+
+            // Show the message box
+            messageBox.style.display = 'block';
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            notificationsContainer.innerHTML = '<div class="message">Error loading messages.</div>';
+        });
+    });
+
+    closeButton.addEventListener('click', function () {
+        messageBox.style.display = 'none';
+    });
+});
+
+      </script>
 
       <div id="weekdays">
         <div>Sunday</div>
