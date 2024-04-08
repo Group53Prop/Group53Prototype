@@ -24,7 +24,7 @@ from timesheet.views import (
 from account.views import(
 
     consultant_view,manager_view,financial_view,redirect_based_on_user_type,
-    view_past_timesheets
+    view_past_timesheets,view_timesheets
    
 )
 
@@ -39,6 +39,8 @@ urlpatterns = [
     path('financial/', financial_view, name='financial'),
     path('manager/', manager_view, name='manager'),
     path('past-timesheets/', view_past_timesheets, name='view_past_timesheets'),
+    path('timesheets/', view_timesheets, name='view_timesheets'),
+    path('notifications/', include('notifications.urls', namespace='notifications')),
     
 
     

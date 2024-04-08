@@ -4,7 +4,9 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 USER_TYPE_CHOICES = [
         ('consultant', 'Consultant'),
         ('Line Manager', 'Manager'),
-        ('financeteam', 'Accounts Payable')
+        ('financeteam', 'Accounts Payable'),
+        ('admin', 'Admin')
+
     ]
 
 class MyAccountManager(BaseUserManager):
@@ -69,3 +71,6 @@ class Account(AbstractBaseUser):
         return self.is_admin
     def has_module_perms(self,app_label):
         return True
+    def get_full_name(self):
+        # Adjust the following to concatenate your user's first and last names appropriately
+        return f"{self.first_name} {self.last_name}"

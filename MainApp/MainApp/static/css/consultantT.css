@@ -8,6 +8,13 @@
   --transition-speed: 600ms;
 }
 
+form{
+  display: flex;
+  justify-content: center;
+}
+
+
+
 body {
   background-color: rgb(253, 251, 251);
   margin: 0;
@@ -132,64 +139,13 @@ header {
   transform: rotate(-180deg);
 }
 
-.container{
-  display:flex;
-  flex-direction:column;
-  justify-content: center;
-  align-items: center;
-}
 
-.Introduction{
-  font-size: 1.8vw;
-  border:solid 5pt white;
-  border-radius: 20px;
-  align-items: baseline;
-  justify-content: center;
-}
 
-.subgrid{
-  border:solid 5pt white;
-  border-radius: 50px;
-  font-size:28px;
-  max-height: 100%;
-  display: grid;
-  grid-template-columns: repeat(4,270px);
-  grid-template-rows: repeat(2,auto);
-  grid-template-areas:
-  'section1 section1 section2 section2'
-  'section3 section3 section4 section4';
-  
-}
 
 a{
   text-decoration: none;
   color:white;
 }
-
-.image1{
-  width: 400px;
-  }
-  ul, li {
-      list-style: none;
-    }
-    
-  .header1{
-      grid-area: section1;
-      text-align: center;
-      margin: 10px;
-  }
-  .header2{
-      grid-area: section2;
-      text-align: center;
-  }
-  .header3{
-      grid-area: section3;
-      text-align: center;
-  }
-  .header4{
-      grid-area: section4;
-      text-align: center;
-  }
 
 
   #MasterContainer {
@@ -198,6 +154,15 @@ a{
     justify-content: center;
     background-color: #FFFCFF;
     margin-left: 100px;
+  }
+  #notif{
+    width: 75px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    padding: 5px;
+    
+    
   }
   button {
     width: 75px;

@@ -6,7 +6,7 @@ class TimeSheetStatus(models.TextChoices):
     PENDING = 'Pending'
     APPROVED = 'Approved'
     REJECTED = 'Rejected'
-    INCOMPLETE= 'Incomplete'
+    
 
 class TimeSheet(models.Model):
     user = models.ForeignKey(

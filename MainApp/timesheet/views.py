@@ -19,18 +19,14 @@ def clock_in(request):
     data = json.loads(request.body)
 
     if data.get('action') == 'clock_in':
-        # Assuming that 'start_time' and 'submission_time' should be set to the current time
-        # and 'end_time' could be the end of the workday or similar, you'll need to decide.
-        # The status is set to PENDING as a default.
         new_timesheet = TimeSheet.objects.create(
             user=request.user,
             start_time=timezone.now(),
-            end_time=timezone.now() + timezone.timedelta(hours=8),  # Example for a full workday
+            end_time=timezone.now(),
             status=TimeSheetStatus.PENDING,
             submission_time=timezone.now()
         )
 
-        # You might want to format the response with more details, e.g., the ID of the new timesheet
         return JsonResponse({
             'status': 'success',
             'msg': 'Clock in recorded',
@@ -67,8 +63,8 @@ def clock_out(request):
 
             except TimeSheet.DoesNotExist:
                 return JsonResponse({'status': 'error', 'msg': 'No pending timesheet found'}, status=404)
-            except Exception as e:  # This is to catch any other exceptions that might be occurring
-                logging.exception("Error occurred when trying to clock out.")  # Make sure logging is imported
+            except Exception as e:  
+                logging.exception("Error occurred when trying to clock out.")  
                 return JsonResponse({'status': 'error', 'msg': 'An unexpected error occurred'}, status=500)
 
     return JsonResponse({'status': 'error', 'msg': 'Invalid action'}, status=400)
